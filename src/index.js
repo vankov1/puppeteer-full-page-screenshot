@@ -48,15 +48,15 @@ const fullPageScreenshot = async (page, options = {}) => {
    if (pagesCount === 1) {
       const image = await Jimp.read(images[0]);
       if (path) image.write(path);
-      return image;
+      return await image.getBase64Async(Jimp.AUTO);
    }
-   
+
    if (extraPixels > 0) {
      // crop last image extra pixels
      const cropped = await Jimp.read(images.pop())
         .then((image) => image.crop(0, viewport.height - extraPixels, viewport.width, extraPixels))
         .then((image) => image.getBufferAsync(Jimp.AUTO));
-     
+
      images.push(cropped);
    }
    const mergedImage = await merge(images, { direction: true });
@@ -69,7 +69,7 @@ const fullPageScreenshot = async (page, options = {}) => {
       });
    }
 
-   return mergedImage;
+   return await mergedImage.getBase64Async(Jimp.AUTO);
 };
 
 export default fullPageScreenshot;
