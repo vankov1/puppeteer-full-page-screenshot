@@ -69,7 +69,8 @@ const fullPageScreenshot = async (page, options = {}) => {
       });
    }
 
-   return await mergedImage.getBase64Async(Jimp.AUTO);
+    const buffer = await mergedImage.getBufferAsync(Jimp.AUTO);
+   return buffer.toString('base64');
 };
 
 export default fullPageScreenshot;
