@@ -48,7 +48,7 @@ const fullPageScreenshot = async (page, options = {}) => {
    if (pagesCount === 1) {
       const image = await Jimp.read(images[0]);
       if (path) image.write(path);
-      return await image.getBase64Async(Jimp.AUTO);
+      return image;
    }
 
    if (extraPixels > 0) {
@@ -69,8 +69,7 @@ const fullPageScreenshot = async (page, options = {}) => {
       });
    }
 
-    const buffer = await mergedImage.getBufferAsync(Jimp.AUTO);
-   return buffer.toString('base64');
+   return mergedImage;
 };
 
 export default fullPageScreenshot;
